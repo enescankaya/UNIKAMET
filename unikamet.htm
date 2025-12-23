@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unikamet Sosyal Medya</title>
+
+  <!-- Modern font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root{
+      --bg-color:#1a1a2e;
+      --card-color:#0f1d40;
+      --accent-color:#e0c97e;
+      --accent-hover:#c9b37a;
+      --text-light:#f8ebd5;
+      --text-muted:#c2b59b;
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg-color);
+      color:var(--text-light);
+      display:flex;
+      min-height:100vh;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .container{
+      max-width:650px;
+      width:100%;
+      background:var(--card-color);
+      border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      padding:40px 30px;
+      text-align:center;
+    }
+
+    /* Text logo (replacing image logo) */
+    .text-logo{
+      font-size:2.8rem;
+      font-weight:600;
+      letter-spacing:4px;
+      margin:0 0 18px 0;
+      line-height:1;
+      user-select:none;
+    }
+    .logo-light{ color:var(--text-light); }
+    .logo-gold{ color:var(--accent-color); }
+
+    h1{
+      font-size:1.7rem;
+      margin:0 0 12px;
+      color:var(--accent-color);
+    }
+
+    p.description{
+      font-size:1rem;
+      line-height:1.65;
+      margin:0 auto 22px;
+      color:var(--text-muted);
+      max-width:560px;
+    }
+
+    .language-selector{
+      margin-bottom:22px;
+      text-align:right;
+    }
+    .language-selector label{
+      margin-right:8px;
+      font-size:.9rem;
+      color:var(--text-light);
+    }
+    .language-selector select{
+      background:var(--bg-color);
+      color:var(--text-light);
+      border:1px solid var(--accent-color);
+      padding:6px 10px;
+      border-radius:8px;
+      font-size:.9rem;
+      outline:none;
+    }
+
+    ul.social-links{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    ul.social-links li{ margin:10px 0; }
+
+    ul.social-links a{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:10px;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:10px;
+      background:var(--accent-color);
+      color:var(--bg-color);
+      font-weight:600;
+      transition:background-color .25s ease, transform .15s ease;
+    }
+    ul.social-links a:hover{
+      background:var(--accent-hover);
+      transform:translateY(-2px);
+    }
+
+    ul.social-links i{
+      font-size:1.25rem;
+      width:26px;
+      text-align:center;
+    }
+
+    @media (max-width:480px){
+      .container{ padding:30px 18px; border-radius:12px; }
+      .text-logo{ font-size:2.2rem; letter-spacing:3px; }
+      h1{ font-size:1.4rem; }
+      .language-selector{ text-align:center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Text logo instead of image -->
+    <div class="text-logo">
+      <span class="logo-light">UNIKA</span><span class="logo-gold">MET</span>
+    </div>
+
+    <h1 id="header-text">Unikamet Sosyal Medya Bağlantıları</h1>
+
+    <p id="description" class="description">
+      Unikamet, Türkiye'de eğitim almak isteyen uluslararası öğrenciler için her adımı kolaylaştıran bir danışmanlık hizmeti sunar.
+      Üniversite kaydından ikamet ve öğrenci kimliği işlemlerine kadar tüm süreçleri sizin için yönetir.
+    </p>
+
+    <div class="language-selector">
+      <label for="language" id="select-label">Dil Seçin:</label>
+      <select id="language" onchange="changeLanguage(this.value)">
+        <option value="tr">Türkçe</option>
+        <option value="uz">O‘zbekcha</option>
+        <option value="ar">العربية</option>
+        <option value="ru">Русский</option>
+        <option value="tk">Türkmençe</option>
+        <option value="fa">فارسی</option>
+      </select>
+    </div>
+
+    <!-- Social media links (WhatsApp chat first) -->
+    <ul class="social-links" id="links-container">
+      <li>
+        <a href="https://wa.me/905464254468" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span id="link-whatsapp-chat">WhatsApp Sohbeti</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://x.com/unikamet" target="_blank" rel="noopener">
+          <i class="fa-brands fa-x-twitter"></i>
+          <span id="link-twitter">Twitter (X)</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.instagram.com/unikamet/" target="_blank" rel="noopener">
+          <i class="fa-brands fa-instagram"></i>
+          <span id="link-instagram">Instagram</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.tiktok.com/@unikamet" target="_blank" rel="noopener">
+          <i class="fa-brands fa-tiktok"></i>
+          <span id="link-tiktok">TikTok</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://t.me/unikamet" target="_blank" rel="noopener">
+          <i class="fa-brands fa-telegram"></i>
+          <span id="link-telegram">Telegram</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://whatsapp.com/channel/0029VbBXaDCEFeXctqEKD738" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span id="link-whatsapp-channel">WhatsApp Kanalı</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.facebook.com/profile.php?id=61585160063206" target="_blank" rel="noopener">
+          <i class="fa-brands fa-facebook"></i>
+          <span id="link-facebook">Facebook</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <script>
+    const translations = {
+      tr: {
+        header: 'Unikamet Sosyal Medya Bağlantıları',
+        description:
+          "Unikamet, Türkiye'de eğitim almak isteyen uluslararası öğrenciler için üniversite kaydından ikamet ve öğrenci kimliği işlemlerine kadar tüm aşamaları kolaylaştıran güvenilir bir danışmanlık firmasıdır. Unikamet ile eğitim yolculuğunuz sorunsuz ve güvenilir bir şekilde başlar.",
+        selectLabel: 'Dil Seçin:',
+        links: {
+          whatsapp_chat: 'WhatsApp Sohbeti',
+          twitter: 'Twitter (X)',
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          telegram: 'Telegram',
+          whatsapp_channel: 'WhatsApp Kanalı',
+          facebook: 'Facebook'
+        }
+      },
+      uz: {
+        header: 'Unikamet Ijtimoiy Tarmoqlar Havolalari',
+        description:
+          "Unikamet, Turkiyada tahsil olishni istagan xorijiy talabalarga universitetga qabul, yashash ruxsatnomasi va talaba guvohnomasi olish jarayonlarini osonlashtirishga yordam beradigan maslahatchilik kompaniyasidir. Unikamet bilan sizning o‘qish sayohatingiz bemalol va ishonchli boshlanadi.",
+        selectLabel: 'Tilni tanlang:',
+        links: {
+          whatsapp_chat: 'WhatsApp Suhbati',
+          twitter: 'Twitter (X)',
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          telegram: 'Telegram',
+          whatsapp_channel: 'WhatsApp Kanal',
+          facebook: 'Facebook'
+        }
+      },
+      ar: {
+        header: 'روابط وسائل التواصل الاجتماعي الخاصة بـ Unikamet',
+        description:
+          "يونيكامت هي شركة استشارية تُسهِّل جميع مراحل الدراسة للطلاب الأجانب في تركيا، بدءًا من التسجيل في الجامعة وحتى الحصول على الإقامة وبطاقة الطالب. مع يونيكامت، تبدأ رحلتك التعليمية بسهولة وثقة.",
+        selectLabel: 'اختر اللغة:',
+        links: {
+          whatsapp_chat: 'دردشة واتساب',
+          twitter: 'تويتر (X)',
+          instagram: 'انستغرام',
+          tiktok: 'تيك توك',
+          telegram: 'تيليجرام',
+          whatsapp_channel: 'قناة واتساب',
+          facebook: 'فيسبوك'
+        }
+      },
+      ru: {
+        header: 'Ссылки на социальные сети Unikamet',
+        description:
+          "Unikamet — консалтинговая компания, которая упрощает все этапы для иностранных студентов, желающих учиться в Турции — от поступления в университет до получения вида на жительство и студенческого удостоверения. С Unikamet ваше образовательное путешествие начинается без осложнений и с уверенностью.",
+        selectLabel: 'Выберите язык:',
+        links: {
+          whatsapp_chat: 'Чат WhatsApp',
+          twitter: 'Twitter (X)',
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          telegram: 'Telegram',
+          whatsapp_channel: 'Канал WhatsApp',
+          facebook: 'Facebook'
+        }
+      },
+      tk: {
+        header: 'Unikamet Sosial Media Baglanyklary',
+        description:
+          "Unikamet, Türkiýada okamak isleýän daşary ýurt talyplary üçin uniwersitetde bellige alnyşdan başlap ýaşaýyş rugsadyna we student şahadatnamasyna çenli ähli ädimleri aňsatlaşdyrýan maslahat beriş kompaniýasydyr. Unikamet bilen bilim syýahatyňyz kynçylyksyz we ynamly başlanýar.",
+        selectLabel: 'Dili saýlaň:',
+        links: {
+          whatsapp_chat: 'WhatsApp Söhbeti',
+          twitter: 'Twitter (X)',
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          telegram: 'Telegram',
+          whatsapp_channel: 'WhatsApp Kanal',
+          facebook: 'Facebook'
+        }
+      },
+      fa: {
+        header: 'لینک‌های شبکه‌های اجتماعی یونیکامت',
+        description:
+          "یونیکامت یک شرکت مشاوره‌ای است که تمامی مراحل تحصیل برای دانشجویان خارجی در ترکیه را ساده می‌کند، از ثبت‌نام در دانشگاه تا دریافت اقامت و کارت دانشجویی. با یونیکامت، سفر آموزشی شما بدون دردسر و با اطمینان آغاز می‌شود.",
+        selectLabel: 'زبان را انتخاب کنید:',
+        links: {
+          whatsapp_chat: 'گفتگوی واتساپ',
+          twitter: 'توییتر (X)',
+          instagram: 'اینستاگرام',
+          tiktok: 'تیک‌تاک',
+          telegram: 'تلگرام',
+          whatsapp_channel: 'کانال واتساپ',
+          facebook: 'فیسبوک'
+        }
+      }
+    };
+
+    function changeLanguage(lang) {
+      const data = translations[lang] || translations.tr;
+      document.documentElement.lang = lang === 'ar' || lang === 'fa' ? lang : 'tr';
+      document.getElementById('header-text').textContent = data.header;
+      document.getElementById('description').textContent = data.description;
+      document.getElementById('select-label').textContent = data.selectLabel;
+
+      document.getElementById('link-whatsapp-chat').textContent = data.links.whatsapp_chat;
+      document.getElementById('link-twitter').textContent = data.links.twitter;
+      document.getElementById('link-instagram').textContent = data.links.instagram;
+      document.getElementById('link-tiktok').textContent = data.links.tiktok;
+      document.getElementById('link-telegram').textContent = data.links.telegram;
+      document.getElementById('link-whatsapp-channel').textContent = data.links.whatsapp_channel;
+      document.getElementById('link-facebook').textContent = data.links.facebook;
+
+      // RTL support for Arabic/Persian
+      document.body.dir = (lang === 'ar' || lang === 'fa') ? 'rtl' : 'ltr';
+      document.querySelector('.language-selector').style.textAlign = (lang === 'ar' || lang === 'fa') ? 'left' : 'right';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => changeLanguage('tr'));
+  </script>
+</body>
+</html>
