@@ -224,6 +224,9 @@
       outline:none;
       cursor:pointer;
       transition: box-shadow .18s ease, border-color .18s ease;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
 
     @media (max-width:640px){
@@ -587,7 +590,7 @@
           telegram: 'Telegram',
           whatsapp_channel: 'WhatsApp Kanal',
           facebook: 'Facebook',
-          call: 'Qo'ng'iroq: 0212 524 60 87'
+          call: "Qo'ng'iroq: 0212 524 60 87"
         }
       },
       ar: {
@@ -681,32 +684,60 @@
     };
 
     function changeLanguage(lang) {
-      const data = translations[lang] || translations.tr;
+      try {
+        const data = translations[lang];
+        if (!data) {
+          console.error('Language not found:', lang);
+          return;
+        }
 
-      document.getElementById('header-text').textContent = data.header;
-      document.getElementById('description').textContent = data.description;
-      document.getElementById('select-label').textContent = data.selectLabel;
+        const elements = {
+          'header-text': data.header,
+          'description': data.description,
+          'select-label': data.selectLabel,
+          'badge-location': data.badgeLocation,
+          'pill-whatsapp': data.pills.whatsapp,
+          'pill-phone': data.pills.phone,
+          'link-whatsapp-chat': data.links.whatsapp_chat,
+          'link-maps': data.links.maps,
+          'link-twitter': data.links.twitter,
+          'link-instagram': data.links.instagram,
+          'link-tiktok': data.links.tiktok,
+          'link-telegram': data.links.telegram,
+          'link-whatsapp-channel': data.links.whatsapp_channel,
+          'link-facebook': data.links.facebook,
+          'link-call': data.links.call
+        };
 
-      document.getElementById('badge-location').textContent = data.badgeLocation;
-      document.getElementById('pill-whatsapp').textContent = data.pills.whatsapp;
-      document.getElementById('pill-phone').textContent = data.pills.phone;
+        for (const [id, text] of Object.entries(elements)) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.textContent = text;
+          }
+        }
 
-      document.getElementById('link-whatsapp-chat').textContent = data.links.whatsapp_chat;
-      document.getElementById('link-maps').textContent = data.links.maps;
-      document.getElementById('link-twitter').textContent = data.links.twitter;
-      document.getElementById('link-instagram').textContent = data.links.instagram;
-      document.getElementById('link-tiktok').textContent = data.links.tiktok;
-      document.getElementById('link-telegram').textContent = data.links.telegram;
-      document.getElementById('link-whatsapp-channel').textContent = data.links.whatsapp_channel;
-      document.getElementById('link-facebook').textContent = data.links.facebook;
-      document.getElementById('link-call').textContent = data.links.call;
-
-      // RTL for Arabic/Persian
-      const isRTL = (lang === 'ar' || lang === 'fa');
-      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+        // RTL for Arabic/Persian
+        const isRTL = (lang === 'ar' || lang === 'fa');
+        document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+        
+        console.log('Language changed to:', lang);
+      } catch (error) {
+        console.error('Error changing language:', error);
+      }
     }
 
-    window.addEventListener('DOMContentLoaded', () => changeLanguage('tr'));
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      changeLanguage('tr');
+      
+      // Add event listener to select
+      const languageSelect = document.getElementById('language');
+      if (languageSelect) {
+        languageSelect.addEventListener('change', function(e) {
+          changeLanguage(e.target.value);
+        });
+      }
+    });
   </script>
 </body>
 </html>
