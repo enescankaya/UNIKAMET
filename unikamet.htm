@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -13,125 +14,292 @@
 
   <style>
     :root{
-      --bg-color:#1a1a2e;
-      --card-color:#0f1d40;
-      --accent-color:#e0c97e;
+      --bg-1:#0b1020;
+      --bg-2:#1a1a2e;
+      --card:#0f1d40;
+      --accent:#e0c97e;
+      --accent-2:#ffdf8a;
       --accent-hover:#c9b37a;
-      --text-light:#f8ebd5;
-      --text-muted:#c2b59b;
+      --text:#f8ebd5;
+      --muted:#c2b59b;
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --ring: 0 0 0 3px rgba(224,201,126,.25);
     }
+
+    *{ box-sizing:border-box; }
 
     body{
       margin:0;
-      padding:0;
-      font-family:'Poppins',sans-serif;
-      background:var(--bg-color);
-      color:var(--text-light);
-      display:flex;
       min-height:100vh;
+      font-family:'Poppins',sans-serif;
+      color:var(--text);
+      display:flex;
       align-items:center;
       justify-content:center;
+      padding:24px;
+
+      /* Dynamic background */
+      background:
+        radial-gradient(900px 450px at 15% 20%, rgba(224,201,126,.18), transparent 60%),
+        radial-gradient(700px 380px at 85% 30%, rgba(255,223,138,.12), transparent 60%),
+        radial-gradient(900px 600px at 50% 90%, rgba(53,79,140,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      overflow-x:hidden;
+    }
+
+    /* Subtle animated glow */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(224,201,126,.08), transparent 55%),
+                  radial-gradient(circle at 70% 60%, rgba(120,160,255,.08), transparent 55%);
+      filter: blur(30px);
+      animation: floatGlow 10s ease-in-out infinite alternate;
+      z-index:-1;
+    }
+
+    @keyframes floatGlow{
+      from{ transform: translate3d(-10px, -10px, 0) scale(1); }
+      to  { transform: translate3d(10px, 12px, 0) scale(1.02); }
     }
 
     .container{
-      max-width:650px;
       width:100%;
-      background:var(--card-color);
-      border-radius:14px;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-      padding:40px 30px;
+      max-width:720px;
+      background: linear-gradient(180deg, rgba(15,29,64,.94), rgba(12,22,52,.94));
+      border: 1px solid rgba(224,201,126,.16);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      padding:42px 30px;
       text-align:center;
+      position:relative;
+      overflow:hidden;
     }
 
-    /* Text logo (replacing image logo) */
+    /* top highlight */
+    .container::after{
+      content:"";
+      position:absolute;
+      top:-80px; left:-120px;
+      width:260px; height:260px;
+      background: radial-gradient(circle, rgba(224,201,126,.16), transparent 65%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+
     .text-logo{
       font-size:2.8rem;
       font-weight:600;
       letter-spacing:4px;
-      margin:0 0 18px 0;
+      margin:0 0 14px 0;
       line-height:1;
       user-select:none;
+      display:inline-flex;
+      gap:0;
+      transition: transform .25s ease, filter .25s ease;
     }
-    .logo-light{ color:var(--text-light); }
-    .logo-gold{ color:var(--accent-color); }
+    .text-logo:hover{
+      transform: translateY(-1px) scale(1.02);
+      filter: drop-shadow(0 0 14px rgba(224,201,126,.55));
+    }
+    .logo-light{ color:var(--text); }
+    .logo-gold{ color:var(--accent); }
 
     h1{
-      font-size:1.7rem;
-      margin:0 0 12px;
-      color:var(--accent-color);
+      font-size:1.65rem;
+      margin:0 0 10px;
+      color:var(--accent);
+      letter-spacing:.2px;
     }
 
     p.description{
       font-size:1rem;
-      line-height:1.65;
-      margin:0 auto 22px;
-      color:var(--text-muted);
-      max-width:560px;
+      line-height:1.7;
+      margin:0 auto 18px;
+      color:var(--muted);
+      max-width:620px;
+    }
+
+    .top-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin: 18px 0 18px;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      background: rgba(26,26,46,.55);
+      border:1px solid rgba(224,201,126,.18);
+      color:var(--text);
+      font-size:.92rem;
+      text-decoration:none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .badge i{ color: var(--accent); }
+    .badge:hover{
+      transform: translateY(-1px);
+      background: rgba(26,26,46,.75);
+      border-color: rgba(224,201,126,.30);
     }
 
     .language-selector{
-      margin-bottom:22px;
-      text-align:right;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      margin-left:auto;
     }
     .language-selector label{
-      margin-right:8px;
       font-size:.9rem;
-      color:var(--text-light);
+      color:var(--text);
+      opacity:.95;
     }
     .language-selector select{
-      background:var(--bg-color);
-      color:var(--text-light);
-      border:1px solid var(--accent-color);
-      padding:6px 10px;
-      border-radius:8px;
-      font-size:.9rem;
+      background: rgba(11,16,32,.6);
+      color:var(--text);
+      border:1px solid rgba(224,201,126,.55);
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:.92rem;
       outline:none;
+      cursor:pointer;
+      transition: box-shadow .18s ease, border-color .18s ease;
+    }
+    .language-selector select:focus{
+      box-shadow: var(--ring);
+      border-color: rgba(224,201,126,.75);
     }
 
+    /* Links */
     ul.social-links{
       list-style:none;
       padding:0;
       margin:0;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
     }
-    ul.social-links li{ margin:10px 0; }
+
+    @media (max-width:560px){
+      ul.social-links{ grid-template-columns: 1fr; }
+    }
 
     ul.social-links a{
       display:flex;
       align-items:center;
       justify-content:flex-start;
-      gap:10px;
+      gap:12px;
       text-decoration:none;
-      padding:12px 18px;
-      border-radius:10px;
-      background:var(--accent-color);
-      color:var(--bg-color);
+      padding:13px 16px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(224,201,126,.95), rgba(255,223,138,.9));
+      color:#14172a;
       font-weight:600;
-      transition:background-color .25s ease, transform .15s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,.18);
+      transition: transform .15s ease, filter .2s ease;
+      position:relative;
+      overflow:hidden;
     }
+
+    /* sheen */
+    ul.social-links a::before{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width:70%;
+      height:180%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: rotate(18deg);
+      transition: left .45s ease;
+      pointer-events:none;
+    }
+    ul.social-links a:hover::before{ left:120%; }
+
     ul.social-links a:hover{
-      background:var(--accent-hover);
-      transform:translateY(-2px);
+      transform: translateY(-2px);
+      filter: brightness(1.02);
     }
 
     ul.social-links i{
-      font-size:1.25rem;
+      font-size:1.28rem;
       width:26px;
       text-align:center;
+      transition: transform .18s ease;
+    }
+    ul.social-links a:hover i{ transform: scale(1.12); }
+
+    /* CTA cards row for phones */
+    .contacts{
+      margin: 18px 0 14px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .contact-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(11,16,32,.55);
+      border:1px solid rgba(224,201,126,.22);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:500;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .contact-pill i{ color: var(--accent); }
+    .contact-pill:hover{
+      transform: translateY(-1px);
+      background: rgba(11,16,32,.75);
+      border-color: rgba(224,201,126,.35);
     }
 
-    @media (max-width:480px){
-      .container{ padding:30px 18px; border-radius:12px; }
-      .text-logo{ font-size:2.2rem; letter-spacing:3px; }
-      h1{ font-size:1.4rem; }
-      .language-selector{ text-align:center; }
+    /* Floating WhatsApp button */
+    .floating-whatsapp{
+      position:fixed;
+      bottom:18px;
+      right:18px;
+      width:58px;
+      height:58px;
+      background:#25d366;
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.9rem;
+      box-shadow:0 10px 24px rgba(0,0,0,.45);
+      z-index:999;
+      transition:transform .2s ease, box-shadow .2s ease;
+      text-decoration:none;
     }
+    .floating-whatsapp:hover{
+      transform:scale(1.08);
+      box-shadow:0 14px 30px rgba(0,0,0,.55);
+    }
+
+    /* RTL support */
+    body[dir="rtl"] .top-row{ flex-direction: row-reverse; }
+    body[dir="rtl"] .language-selector{ justify-content:flex-start; margin-left:0; margin-right:auto; }
+    body[dir="rtl"] ul.social-links a{ justify-content:flex-end; }
+    body[dir="rtl"] ul.social-links i{ margin-left:0; }
   </style>
 </head>
 
 <body>
   <div class="container">
 
-    <!-- Text logo instead of image -->
     <div class="text-logo">
       <span class="logo-light">UNIKA</span><span class="logo-gold">MET</span>
     </div>
@@ -139,28 +307,56 @@
     <h1 id="header-text">Unikamet Sosyal Medya Bağlantıları</h1>
 
     <p id="description" class="description">
-      Unikamet, Türkiye'de eğitim almak isteyen uluslararası öğrenciler için her adımı kolaylaştıran bir danışmanlık hizmeti sunar.
-      Üniversite kaydından ikamet ve öğrenci kimliği işlemlerine kadar tüm süreçleri sizin için yönetir.
+      Unikamet, Türkiye’de yasal olarak ikamet etmek isteyen yabancılar için profesyonel danışmanlık hizmeti sunar.
+      Öğrenci ikameti başta olmak üzere, üniversite kaydı, ikamet başvurusu ve resmi işlemler tek merkezden güvenle yönetilir.
     </p>
 
-    <div class="language-selector">
-      <label for="language" id="select-label">Dil Seçin:</label>
-      <select id="language" onchange="changeLanguage(this.value)">
-        <option value="tr">Türkçe</option>
-        <option value="uz">O‘zbekcha</option>
-        <option value="ar">العربية</option>
-        <option value="ru">Русский</option>
-        <option value="tk">Türkmençe</option>
-        <option value="fa">فارسی</option>
-      </select>
+    <!-- Contact + Language row -->
+    <div class="top-row">
+      <a class="badge" href="https://maps.app.goo.gl/BWKo8JAf33uGPzTc8?g_st=iw" target="_blank" rel="noopener">
+        <i class="fa-solid fa-location-dot"></i>
+        <span id="badge-location">Konum</span>
+      </a>
+
+      <div class="language-selector">
+        <label for="language" id="select-label">Dil Seçin:</label>
+        <select id="language" onchange="changeLanguage(this.value)">
+          <option value="tr">Türkçe</option>
+          <option value="uz">O‘zbekcha</option>
+          <option value="ar">العربية</option>
+          <option value="ru">Русский</option>
+          <option value="tk">Türkmençe</option>
+          <option value="fa">فارسی</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Phone shortcuts -->
+    <div class="contacts">
+      <a class="contact-pill" href="https://wa.me/905527766667" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span id="pill-whatsapp">WhatsApp: 552 776 66 67</span>
+      </a>
+
+      <a class="contact-pill" href="tel:+902125246087">
+        <i class="fa-solid fa-phone"></i>
+        <span id="pill-phone">Tel: 0212 524 60 87</span>
+      </a>
     </div>
 
     <!-- Social media links (WhatsApp chat first) -->
     <ul class="social-links" id="links-container">
       <li>
-        <a href="https://wa.me/905464254468" target="_blank" rel="noopener">
+        <a href="https://wa.me/905527766667" target="_blank" rel="noopener">
           <i class="fa-brands fa-whatsapp"></i>
           <span id="link-whatsapp-chat">WhatsApp Sohbeti</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="https://maps.app.goo.gl/BWKo8JAf33uGPzTc8?g_st=iw" target="_blank" rel="noopener">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span id="link-maps">Konum (Google Maps)</span>
         </a>
       </li>
 
@@ -205,125 +401,186 @@
           <span id="link-facebook">Facebook</span>
         </a>
       </li>
+
+      <li>
+        <a href="tel:+902125246087">
+          <i class="fa-solid fa-phone"></i>
+          <span id="link-call">Ara: 0212 524 60 87</span>
+        </a>
+      </li>
     </ul>
 
   </div>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/905527766667" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
   <script>
     const translations = {
       tr: {
         header: 'Unikamet Sosyal Medya Bağlantıları',
         description:
-          "Unikamet, Türkiye'de eğitim almak isteyen uluslararası öğrenciler için üniversite kaydından ikamet ve öğrenci kimliği işlemlerine kadar tüm aşamaları kolaylaştıran güvenilir bir danışmanlık firmasıdır. Unikamet ile eğitim yolculuğunuz sorunsuz ve güvenilir bir şekilde başlar.",
+          "Unikamet, Türkiye’de yasal olarak ikamet etmek isteyen yabancılar için profesyonel danışmanlık hizmeti sunar. Öğrenci ikameti başta olmak üzere, üniversite kaydı, ikamet başvurusu ve resmi işlemler tek merkezden güvenle yönetilir.",
         selectLabel: 'Dil Seçin:',
+        badgeLocation: 'Konum',
+        pills: {
+          whatsapp: 'WhatsApp: 552 776 66 67',
+          phone: 'Tel: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'WhatsApp Sohbeti',
+          maps: 'Konum (Google Maps)',
           twitter: 'Twitter (X)',
           instagram: 'Instagram',
           tiktok: 'TikTok',
           telegram: 'Telegram',
           whatsapp_channel: 'WhatsApp Kanalı',
-          facebook: 'Facebook'
+          facebook: 'Facebook',
+          call: 'Ara: 0212 524 60 87'
         }
       },
       uz: {
         header: 'Unikamet Ijtimoiy Tarmoqlar Havolalari',
         description:
-          "Unikamet, Turkiyada tahsil olishni istagan xorijiy talabalarga universitetga qabul, yashash ruxsatnomasi va talaba guvohnomasi olish jarayonlarini osonlashtirishga yordam beradigan maslahatchilik kompaniyasidir. Unikamet bilan sizning o‘qish sayohatingiz bemalol va ishonchli boshlanadi.",
+          "Unikamet Turkiyada qonuniy yashash (ikamet) olishni istagan chet elliklarga professional maslahat xizmati ko‘rsatadi. Asosan talaba ikameti, universitet ro‘yxatdan o‘tish, ikamet arizasi va rasmiy jarayonlar bir joydan ishonchli boshqariladi.",
         selectLabel: 'Tilni tanlang:',
+        badgeLocation: 'Manzil',
+        pills: {
+          whatsapp: 'WhatsApp: 552 776 66 67',
+          phone: 'Tel: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'WhatsApp Suhbati',
+          maps: 'Manzil (Google Maps)',
           twitter: 'Twitter (X)',
           instagram: 'Instagram',
           tiktok: 'TikTok',
           telegram: 'Telegram',
           whatsapp_channel: 'WhatsApp Kanal',
-          facebook: 'Facebook'
+          facebook: 'Facebook',
+          call: 'Qo‘ng‘iroq: 0212 524 60 87'
         }
       },
       ar: {
-        header: 'روابط وسائل التواصل الاجتماعي الخاصة بـ Unikamet',
+        header: 'روابط Unikamet',
         description:
-          "يونيكامت هي شركة استشارية تُسهِّل جميع مراحل الدراسة للطلاب الأجانب في تركيا، بدءًا من التسجيل في الجامعة وحتى الحصول على الإقامة وبطاقة الطالب. مع يونيكامت، تبدأ رحلتك التعليمية بسهولة وثقة.",
+          "تقدم يونيكامت استشارات احترافية للأجانب الراغبين بالحصول على إقامة قانونية في تركيا. نُدير إجراءات إقامة الطالب بشكل خاص، مع التسجيل والطلب والمعاملات الرسمية من مكان واحد وبشكل موثوق.",
         selectLabel: 'اختر اللغة:',
+        badgeLocation: 'الموقع',
+        pills: {
+          whatsapp: 'واتساب: 552 776 66 67',
+          phone: 'هاتف: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'دردشة واتساب',
+          maps: 'الموقع (Google Maps)',
           twitter: 'تويتر (X)',
-          instagram: 'انستغرام',
+          instagram: 'إنستغرام',
           tiktok: 'تيك توك',
           telegram: 'تيليجرام',
           whatsapp_channel: 'قناة واتساب',
-          facebook: 'فيسبوك'
+          facebook: 'فيسبوك',
+          call: 'اتصال: 0212 524 60 87'
         }
       },
       ru: {
-        header: 'Ссылки на социальные сети Unikamet',
+        header: 'Ссылки Unikamet',
         description:
-          "Unikamet — консалтинговая компания, которая упрощает все этапы для иностранных студентов, желающих учиться в Турции — от поступления в университет до получения вида на жительство и студенческого удостоверения. С Unikamet ваше образовательное путешествие начинается без осложнений и с уверенностью.",
+          "Unikamet предоставляет профессиональные консультации иностранцам, которые хотят легально оформить вид на жительство в Турции. В частности, мы сопровождаем студенческий ВНЖ: регистрацию/оформление, подачу заявления и официальные процедуры — в одном месте и надежно.",
         selectLabel: 'Выберите язык:',
+        badgeLocation: 'Локация',
+        pills: {
+          whatsapp: 'WhatsApp: 552 776 66 67',
+          phone: 'Тел: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'Чат WhatsApp',
+          maps: 'Локация (Google Maps)',
           twitter: 'Twitter (X)',
           instagram: 'Instagram',
           tiktok: 'TikTok',
           telegram: 'Telegram',
           whatsapp_channel: 'Канал WhatsApp',
-          facebook: 'Facebook'
+          facebook: 'Facebook',
+          call: 'Позвонить: 0212 524 60 87'
         }
       },
       tk: {
         header: 'Unikamet Sosial Media Baglanyklary',
         description:
-          "Unikamet, Türkiýada okamak isleýän daşary ýurt talyplary üçin uniwersitetde bellige alnyşdan başlap ýaşaýyş rugsadyna we student şahadatnamasyna çenli ähli ädimleri aňsatlaşdyrýan maslahat beriş kompaniýasydyr. Unikamet bilen bilim syýahatyňyz kynçylyksyz we ynamly başlanýar.",
+          "Unikamet, Türkiýada kanuny ýagdaýda ýaşamak (ikamet) isleýän daşary ýurtlular üçin professional maslahat hyzmatyny berýär. Esasan student ikameti, uniwersitet ýazgy, ikamet arzasy we resmi işler bir ýerden ynamly alnyp barylýar.",
         selectLabel: 'Dili saýlaň:',
+        badgeLocation: 'Ýerleşýän ýeri',
+        pills: {
+          whatsapp: 'WhatsApp: 552 776 66 67',
+          phone: 'Tel: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'WhatsApp Söhbeti',
+          maps: 'Ýerleşýän ýeri (Google Maps)',
           twitter: 'Twitter (X)',
           instagram: 'Instagram',
           tiktok: 'TikTok',
           telegram: 'Telegram',
           whatsapp_channel: 'WhatsApp Kanal',
-          facebook: 'Facebook'
+          facebook: 'Facebook',
+          call: 'Jaň et: 0212 524 60 87'
         }
       },
       fa: {
-        header: 'لینک‌های شبکه‌های اجتماعی یونیکامت',
+        header: 'لینک‌های یونیکامت',
         description:
-          "یونیکامت یک شرکت مشاوره‌ای است که تمامی مراحل تحصیل برای دانشجویان خارجی در ترکیه را ساده می‌کند، از ثبت‌نام در دانشگاه تا دریافت اقامت و کارت دانشجویی. با یونیکامت، سفر آموزشی شما بدون دردسر و با اطمینان آغاز می‌شود.",
+          "یونیکامت خدمات مشاوره حرفه‌ای برای خارجی‌هایی که می‌خواهند اقامت قانونی در ترکیه بگیرند ارائه می‌دهد. به‌ویژه اقامت دانشجویی، ثبت‌نام، درخواست اقامت و مراحل رسمی به‌صورت یکپارچه و مطمئن مدیریت می‌شود.",
         selectLabel: 'زبان را انتخاب کنید:',
+        badgeLocation: 'موقعیت',
+        pills: {
+          whatsapp: 'واتساپ: 552 776 66 67',
+          phone: 'تلفن: 0212 524 60 87'
+        },
         links: {
           whatsapp_chat: 'گفتگوی واتساپ',
+          maps: 'موقعیت (Google Maps)',
           twitter: 'توییتر (X)',
           instagram: 'اینستاگرام',
           tiktok: 'تیک‌تاک',
           telegram: 'تلگرام',
           whatsapp_channel: 'کانال واتساپ',
-          facebook: 'فیسبوک'
+          facebook: 'فیسبوک',
+          call: 'تماس: 0212 524 60 87'
         }
       }
     };
 
     function changeLanguage(lang) {
       const data = translations[lang] || translations.tr;
-      document.documentElement.lang = lang === 'ar' || lang === 'fa' ? lang : 'tr';
+
       document.getElementById('header-text').textContent = data.header;
       document.getElementById('description').textContent = data.description;
       document.getElementById('select-label').textContent = data.selectLabel;
 
+      document.getElementById('badge-location').textContent = data.badgeLocation;
+      document.getElementById('pill-whatsapp').textContent = data.pills.whatsapp;
+      document.getElementById('pill-phone').textContent = data.pills.phone;
+
       document.getElementById('link-whatsapp-chat').textContent = data.links.whatsapp_chat;
+      document.getElementById('link-maps').textContent = data.links.maps;
       document.getElementById('link-twitter').textContent = data.links.twitter;
       document.getElementById('link-instagram').textContent = data.links.instagram;
       document.getElementById('link-tiktok').textContent = data.links.tiktok;
       document.getElementById('link-telegram').textContent = data.links.telegram;
       document.getElementById('link-whatsapp-channel').textContent = data.links.whatsapp_channel;
       document.getElementById('link-facebook').textContent = data.links.facebook;
+      document.getElementById('link-call').textContent = data.links.call;
 
-      // RTL support for Arabic/Persian
-      document.body.dir = (lang === 'ar' || lang === 'fa') ? 'rtl' : 'ltr';
-      document.querySelector('.language-selector').style.textAlign = (lang === 'ar' || lang === 'fa') ? 'left' : 'right';
+      // RTL for Arabic/Persian
+      const isRTL = (lang === 'ar' || lang === 'fa');
+      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
     }
 
     window.addEventListener('DOMContentLoaded', () => changeLanguage('tr'));
   </script>
 </body>
 </html>
+```
